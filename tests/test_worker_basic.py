@@ -3,7 +3,7 @@ import unittest
 import codecs
 import os
 
-from workers.basic_worker import BasicUserParseWorker
+from ..workers.basic_worker import BasicUserParseWorker
 
 
 class TestWorkerBasic(unittest.TestCase):

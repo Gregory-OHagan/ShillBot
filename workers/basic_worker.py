@@ -1,7 +1,7 @@
 
 import requests
 import socket
-import settings
+from .. import settings
 import json
 import time
 import logging
