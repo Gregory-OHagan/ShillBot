@@ -2,6 +2,8 @@
 import unittest
 import codecs
 import os
+import socket
+
 
 from workers.basic_worker import BasicUserParseWorker
 
@@ -19,7 +21,7 @@ class TestWorkerBasic(unittest.TestCase):
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
 
         # Can't connect to mother, so should raise ConnectionRefusedError, but should run everything else
-        self.assertRaises(ConnectionRefusedError, worker.run)
+        self.assertRaises(socket.error, worker.run)
 
     def test_worker_parsing(self):
         """
@@ -34,7 +36,7 @@ class TestWorkerBasic(unittest.TestCase):
         with codecs.open(file_path, encoding='utf-8') as f:
             text = f.read()
 
-        results, next_page = worker.parse_text(str(text).strip().replace('\r\n', ''))
+        results, next_page = worker.parse_text(str(text).strip().replace('\r\n', '').encode("utf-8"))
 
         self.assertGreater(len(results), 0)     # Check that results are returned
         self.assertEqual(len(results[0]), 3)    # Check that results are in triplets (check formatting)
@@ -52,7 +54,7 @@ class TestWorkerBasic(unittest.TestCase):
 
     def test_worker_add_links_in_crawled(self):
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
-        worker.crawled = []
+        worker.crawled = ["https://www.reddit.com/user/Chrikelnel"]
 
         len_to_crawl_before = len(worker.to_crawl)
         worker.add_links(["https://www.reddit.com/user/Chrikelnel"])
