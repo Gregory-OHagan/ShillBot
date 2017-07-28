@@ -94,6 +94,7 @@ class TestWorkerBasic(unittest.TestCase):
 
         :return:
         """
+        mama = MothershipServer()
         threading.Thread(target=mama.run).start()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         to_crawl = worker.to_crawl
@@ -110,8 +111,8 @@ class TestWorkerBasic(unittest.TestCase):
         """
         worker = BasicUserParseWorker("link1")
         self.assertEqual(worker.cur_links, 1)
+        worker.max_links = 5
         worker.add_links(["link1", "link2", "link3"])
         self.assertEqual(worker.cur_links, 3)
-        worker.max_links = 5
         worker.add_links(["link4", "link5", "link6"])
         self.assertEqual(worker.cur_links, 5)
