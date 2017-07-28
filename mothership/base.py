@@ -23,14 +23,14 @@ class MothershipServer(object):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((self.host, self.port))
-        flag = True
+        self.flag = True
 
     def run(self):
         print('Starting Mothership.')
 
         self.sock.listen(5)
         print('Mother is listening...')
-        while flag:
+        while self.flag:
             worker, address = self.sock.accept()
             worker.settimeout(60)
             print('Connection Received: %s' % str(address))
