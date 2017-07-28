@@ -74,7 +74,6 @@ class BasicUserParseWorker(object):
                 log.error('Could not get response from url (%s)' % url)
                 raise WorkerException('Could not get response from %s' % url)
 
-            self.cur_links += 1
 
             text = resp.text
             parse_results, next_page = self.parse_text(text)
