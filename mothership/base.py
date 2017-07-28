@@ -37,7 +37,7 @@ class MothershipServer(object):
             threading.Thread(target=self.handle_worker_contact, args=(worker, address)).start()
 
     def handle_worker_contact(self, worker, address):
-        while True:
+        while self.flag:
             try:
                 data = worker.recv(self.buff_size)
                 if data:

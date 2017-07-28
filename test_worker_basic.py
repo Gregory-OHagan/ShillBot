@@ -88,21 +88,7 @@ class TestWorkerBasic(unittest.TestCase):
         self.assertIsNone(worker.run())
         mama.close()
     
-    def test_move_to_crawled(self):
-        """
-        Purpose: Ensure that links are being moved from to_crawl to crawled once crawled.
-        Expectation: to_crawl before crawling should equal crawled after crawling
-
-        :return:
-        """
-        mama = MothershipServer()
-        threading.Thread(target=mama.run).start()
-        worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
-        to_crawl = worker.to_crawl
-        worker.run()
-        crawled = worker.crawled
-        self.assertEqual(to_crawl, crawled)
-        mama.close()
+    def
     
     def test_curr_links(self):
         """
