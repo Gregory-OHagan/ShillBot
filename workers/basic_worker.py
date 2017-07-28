@@ -157,5 +157,7 @@ class BasicUserParseWorker(object):
                 for i in self.crawled:
                     if item == i:
                         break
+                    else:
+                        continue
                     self.to_crawl.append(item)
                     self.cur_links += 1
