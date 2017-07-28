@@ -156,10 +156,10 @@ class BasicUserParseWorker(object):
             dup = False
             if self.cur_links < self.max_links:
                 for i in self.crawled:
-                    if not dup and item == i:
+                    if item == i:
                         dup = True
                         break
-            if dup:
-                continue
-            self.to_crawl.append(item)
-            self.cur_links += 1
+                if dup:
+                    continue
+                self.to_crawl.append(item)
+                self.cur_links += 1
