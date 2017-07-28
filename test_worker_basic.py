@@ -42,6 +42,12 @@ class TestWorkerBasic(unittest.TestCase):
         self.assertEqual(len(results[0]), 3)    # Check that results are in triplets (check formatting)
 
     def test_worker_add_links_max_limit(self):
+        """
+        Purpose: Ensure that links are not added once cur_links >= max_links
+        Expectation: add_links has no effect (link is not added)
+
+        :return:
+        """
         worker = None
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
 
@@ -53,6 +59,12 @@ class TestWorkerBasic(unittest.TestCase):
         self.assertEqual(len_to_crawl_after, len_to_crawl_before)
 
     def test_worker_add_links_in_crawled(self):
+        """
+        Purpose: Test that adding links won't add already crawled links
+        Expectation: add_links has no effect (link is not added)
+
+        :return:
+        """
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         worker.crawled = ["https://www.reddit.com/user/Chrikelnel"]
 
@@ -72,7 +84,7 @@ class TestWorkerBasic(unittest.TestCase):
         mama = MothershipServer()
         mama.run()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
-        worker.run()
+        self.assertIsNone(worker.run())
     
     def test_move_to_crawled(self):
         """
