@@ -103,7 +103,7 @@ class TestWorkerBasic(unittest.TestCase):
         len_to_crawl_before = len(worker.to_crawl)
         worker.add_links(["test1"])
         len_to_crawl_after = len(worker.to_crawl)
-        self.assertEqual(len_to_crawl_after == len_to_crawl_before)
+        self.assertEqual(len_to_crawl_after, len_to_crawl_before)
         
 
     def test_curr_links(self):
@@ -113,6 +113,7 @@ class TestWorkerBasic(unittest.TestCase):
 
         :return:
         """
+        worker = None
         worker = BasicUserParseWorker("link1")
         self.assertEqual(worker.cur_links, 1)
         worker.max_links = 5
