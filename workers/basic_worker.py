@@ -155,4 +155,4 @@ class BasicUserParseWorker(object):
         for item in links:
             if item not in self.crawled and self.cur_links < self.max_links:
                 self.to_crawl.append(item)
-                cur_links += 1
+                self.cur_links += 1
