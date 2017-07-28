@@ -88,8 +88,24 @@ class TestWorkerBasic(unittest.TestCase):
         self.assertIsNone(worker.run())
         mama.close()
     
-    def
+    def test_duplicate_links(self):
+        """
+        Purpose: Test that duplicate links aren't added
+        Expectation: length should not increase when adding a duplicate link is attempted to
     
+        :return:
+        """
+        worker = None
+        worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
+
+        worker.max_links = 5
+        worker.add_links("test1", "test2")
+        len_to_crawl_before = len(worker.to_crawl)
+        worker.add_links("test1")
+        len_to_crawl_after = len(worker.to_crawl)
+        self.assert(len_to_crawl_after == len_to_crawl_before)
+        
+
     def test_curr_links(self):
         """
         Purpose: Test that curr_links is updating when links are added
