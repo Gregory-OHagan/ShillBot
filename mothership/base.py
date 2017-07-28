@@ -3,7 +3,7 @@ import socket
 import threading
 import json
 
-import settings
+from .. import settings
 
 
 class MothershipServer(object):
