@@ -63,24 +63,42 @@ class TestWorkerBasic(unittest.TestCase):
         self.assertEqual(len_to_crawl_after, len_to_crawl_before)
 
     def test_connection_to_mothership(self):
-        #mama = MothershipServer()
+        """
+        Purpose: Test that the workers are connecting to the server
+        Expectation: start mothership, then run worker. Worker should not raise socket exception
+
+        :return:
+        """
+        mama = MothershipServer()
         mama.run()
-        worker = None
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         worker.run()
     
     def test_move_to_crawled(self):
+        """
+        Purpose: Ensure that links are being moved from to_crawl to crawled once crawled.
+        Expectation: to_crawl before crawling should equal crawled after crawling
+
+        :return:
+        """
         mama.run()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         to_crawl = worker.to_crawl
-        #worker.run()
+        worker.run()
         crawled = worker.crawled
         self.assertEqual(to_crawl, crawled)
     
     def test_curr_links(self):
+        """
+        Purpose: Test that curr_links is updating when links are added
+        Expectation: curr_links should increase as links are added, but only up to max_links
+
+        :return:
+        """
         worker = BasicUserParseWorker("link1")
         self.assertEqual(worker.cur_links, 1)
         worker.add_links(["link1", "link2", "link3"])
         self.assertEqual(worker.cur_links, 3)
         worker.max_links = 5
         worker.add_links(["link4", "link5", "link6"])
+        self.assertEqual(worker.cur_links, 5)

@@ -38,6 +38,7 @@ class BasicUserParseWorker(object):
         if target:
             self.to_crawl.append(target)
             self.original_target = target
+            self.cur_links = 1
 
         self.max_links = settings.WORKERS.get('max_links', 10)
         self.link_delay = settings.WORKERS.get('link_delay', 0.25)
@@ -150,4 +151,8 @@ class BasicUserParseWorker(object):
         :return:
         """
         links = list(set(links))
-        [self.to_crawl.append(item) for item in links if item not in self.crawled and self.cur_links < self.max_links]
+        #[self.to_crawl.append(item) for item in links if item not in self.crawled and self.cur_links < self.max_links]
+        for item in links:
+            if item not in self.crawled and self.cur_links < self.max_links:
+                self.to_crawl.append(item)
+                cur_links += 1
