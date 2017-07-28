@@ -86,6 +86,7 @@ class TestWorkerBasic(unittest.TestCase):
         threading.Thread(target=mama.run).start()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         self.assertIsNone(worker.run())
+        mama.close()
     
     def test_move_to_crawled(self):
         """
@@ -101,6 +102,7 @@ class TestWorkerBasic(unittest.TestCase):
         worker.run()
         crawled = worker.crawled
         self.assertEqual(to_crawl, crawled)
+        mama.close()
     
     def test_curr_links(self):
         """
