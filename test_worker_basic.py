@@ -3,6 +3,7 @@ import unittest
 import codecs
 import os
 import socket
+import threading
 
 
 from workers.basic_worker import BasicUserParseWorker
@@ -82,7 +83,7 @@ class TestWorkerBasic(unittest.TestCase):
         :return:
         """
         mama = MothershipServer()
-        mama.run()
+        threading.Thread(target=mama.run).start()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         self.assertIsNone(worker.run())
     
@@ -93,7 +94,7 @@ class TestWorkerBasic(unittest.TestCase):
 
         :return:
         """
-        mama.run()
+        threading.Thread(target=mama.run).start()
         worker = BasicUserParseWorker("https://www.reddit.com/user/Chrikelnel")
         to_crawl = worker.to_crawl
         worker.run()

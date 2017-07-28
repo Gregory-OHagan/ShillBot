@@ -24,7 +24,6 @@ class MothershipServer(object):
         self.sock.bind((self.host, self.port))
 
     def run(self):
-
         print('Starting Mothership.')
 
         self.sock.listen(5)
