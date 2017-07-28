@@ -35,7 +35,7 @@ class TestWorkerBasic(unittest.TestCase):
 
         with codecs.open(file_path, encoding='utf-8') as f:
             text = f.read()
-        results, next_page = worker.parse_text(text.encode("utf-8".strip().replace('\r\n', ''))
+        results, next_page = worker.parse_text(text.encode("utf-8").strip().replace('\r\n', ''))
 
         self.assertGreater(len(results), 0)     # Check that results are returned
         self.assertEqual(len(results[0]), 3)    # Check that results are in triplets (check formatting)
